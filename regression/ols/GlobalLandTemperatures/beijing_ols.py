@@ -2,9 +2,17 @@ import pandas as pd
 import numpy as np
 import math
 import matplotlib.pyplot as plt
+from sklearn import linear_model
+
+# I am using the ground temperature data created by Berkeley Earth (http://berkeleyearth.org)
+# The data can be found at http://berkeleyearth.org/data/
+
+# This is a simple example of Ordinary Least Square. 
+# I am looking for correlation between time and earth tempertuare in Beijing.
+# We can see some sign of global warming from the final plot
 
 def ols(tr_feat, tr_label):
-    ''' perform ordinary least square on given on dimensional data. '''
+    ''' perform ordinary least square on given dimensional data by solving the normal equation directly. '''
     n = len(tr_feat)
     X = tr_feat
     Y = tr_label
@@ -33,6 +41,15 @@ if __name__ == "__main__":
     tr_feats = beijing_avg_temp[:,0].reshape(n,1)
     tr_labels = beijing_avg_temp[:,1].reshape(n,1)
     beta, error = ols(tr_feats, tr_labels)
+    
+    
+    # use scikit-learn ols class to solve the ols problem
+    reg = linear_model.LinearRegression()
+    reg.fit(tr_feats, tr_labels)
+    
+    assert round(reg.intercept_[0],6)==round(beta[0],6), "intercept not the same"
+    assert np.round(reg.coef_.ravel(),6)==np.round(beta[1:].ravel(),6), "beta not the same"
+    
     
     # plot the data
     plt.scatter(tr_feats, tr_labels)
