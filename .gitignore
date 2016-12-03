@@ -1,4 +1,5 @@
 *.csv
 *.DS_Store
 *.pyc
-*/GlobalLandTemperatures/chengdu*
+**/GlobalLandTemperatures/chengdu*
+**/student_academic_performance/xAPI-Edu-Data.csv
