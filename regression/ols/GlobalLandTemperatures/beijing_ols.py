@@ -1,15 +1,23 @@
+#!/usr/bin/env python
+
+'''
+Created by Wenxi Chen.
+I am using the ground temperature data created by Berkeley Earth (http://berkeleyearth.org).
+The data can be found at http://berkeleyearth.org/data/
+
+This is a simple example of Ordinary Least Square. 
+I am looking for correlation between time and earth tempertuare in Beijing.
+We can see some sign of global warming from the final plot.
+output from my ols function and ski-learn module is compared.
+
+'''
+
 import pandas as pd
 import numpy as np
 import math
 import matplotlib.pyplot as plt
 from sklearn import linear_model
 
-# I am using the ground temperature data created by Berkeley Earth (http://berkeleyearth.org)
-# The data can be found at http://berkeleyearth.org/data/
-
-# This is a simple example of Ordinary Least Square. 
-# I am looking for correlation between time and earth tempertuare in Beijing.
-# We can see some sign of global warming from the final plot
 
 def ols(tr_feat, tr_label):
     ''' perform ordinary least square on given dimensional data by solving the normal equation directly. '''

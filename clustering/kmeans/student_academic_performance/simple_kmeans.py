@@ -1,18 +1,24 @@
+#!/usr/bin/env python
+
+'''
+Created by Wenxi Chen.
+Perfomr simple kmeans clustering for the student academic dataset.
+The dataset is created by 
+Elaf Abu Amrieh, Thair Hamtini, and Ibrahim Aljarah, The University of Jordan, Amman, Jordan.
+The easy way to find the dataset is from IbrahimAljarah on Kaggle
+at https://www.kaggle.com/aljarah/xAPI-Edu-Data.
+
+To visualize the clustered data, 
+I only pick out the "raised hand" and "Discussion" attrubutes.
+Clearly, there's not much cluster from the look of the data.
+So clustering on these two is not so meaningful beside demonstrating the implementation of kmeans.
+
+'''
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Perfomr simple kmeans clustering for the student academic dataset
-# the dataset is created by 
-# Elaf Abu Amrieh, Thair Hamtini, and Ibrahim Aljarah, The University of Jordan, Amman, Jordan
-# The easy way to find the dataset is from IbrahimAljarah on Kaggle
-# at https://www.kaggle.com/aljarah/xAPI-Edu-Data
-
-# To visualize the clustered data, 
-# I only pick out the "raised hand" and "Discussion" attrubute
-# Clearly, there's not much cluster from the look of the data
-# So clustering on this two is not so meaningful 
-# beside demonstrating the implementation of kmeans
 
 def Kmeans(X, K):
     ''' implement kmeans clustering '''
