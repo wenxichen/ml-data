@@ -2,7 +2,8 @@
 
 '''
 Created by Wenxi Chen.
-Perfomr simple kmeans clustering for the student academic dataset.
+Perform simple kmeans clustering for the student academic dataset.
+Use kmeans++ to initialize the centroids.
 The dataset is created by 
 Elaf Abu Amrieh, Thair Hamtini, and Ibrahim Aljarah, The University of Jordan, Amman, Jordan.
 The easy way to find the dataset is from IbrahimAljarah on Kaggle
@@ -19,14 +20,42 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+def kmeanspp(X, K):
+    ''' implement kmeans++ for initializing centroids. '''
+    
+    c = np.empty((K, X.shape[1]))
+    X_copy = np.copy(X)
+    
+    # randomly select first centroid
+    rint = np.random.randint(X.shape[0])
+    c[0,:] = X[rint]
+    X_copy = np.delete(X_copy, (rint), axis=0)
+
+    # use minimum distance based distribution to select other centroids
+    for i in range(1, K):
+        n = X_copy.shape[0]
+        dist = np.sum(np.square(X_copy - c[1,:]), 1).reshape(n,1)
+        for j in range(1, i):
+            temp_dist = np.sum(np.square(X_copy - c[j,:]), 1).reshape(n,1)
+            dist = np.hstack((dist, temp_dist))
+        dist = np.min(dist, 1)
+        
+        distribution = dist / float(np.sum(dist))
+        c_idx = np.random.choice(n, p=distribution)
+        c[i,:] = X_copy[c_idx]
+        X_copy = np.delete(X_copy, (c_idx), axis=0) 
+        
+        
+    return c
 
 def Kmeans(X, K):
     ''' implement kmeans clustering '''
     
-    # c = kmeanspp(X, K)      # K x d
     
     n = X.shape[0]
-    c = X[np.random.choice(n, K, replace=False)]
+    # c = X[np.random.choice(n, K, replace=False)]      # random initialize the centroids
+    c = kmeanspp(X, K)      # K x d    initialize centroids using kmeans++
+    # print "initial centroids", c
     c_temp = np.empty(c.shape)
     a = np.empty((n,1))
     
@@ -51,7 +80,8 @@ if __name__ == "__main__":
     # no need to do data cleasing
     student_academic = pd.read_csv('xAPI-Edu-Data.csv')
     X = student_academic.loc[:,['raisedhands', 'Discussion']].as_matrix()
-    K = 3
+    K = 3   
+    
     a, c = Kmeans(X, 3)
     
     a = a.ravel()
