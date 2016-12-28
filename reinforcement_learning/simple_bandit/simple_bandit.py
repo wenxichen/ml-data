@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
 '''
+Created by Wenxi Chen.
 Implementation of the simple bandit algorithm on page 33 of 
-"Reinforcement Learning: An Introduction" by Richard S. Sutton and Andrew G. Barto.
+"Reinforcement Learning: An Introduction" (Richard S. Sutton and Andrew G. Barto).
+The code also compare the epsilon greedy with greedy with optimistic initial values.
+Simple bandit is a stationary problem, in this case with 10 actions.
 '''
 
 import numpy as np
